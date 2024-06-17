@@ -59,12 +59,12 @@ class GNBA:
                     if not (until in formula_set and until.right not in formula_set):
                         F.append(index)
                 self.final.append(F)
-        for final_set in self.final:
-            # for every pair of nodes in the same final set, add edges
-            for i in range(len(final_set)):
-                for j in range(len(final_set)):
-                    self.nodes[final_set[i]].add_next(final_set[j])
-                    self.nodes[final_set[j]].add_prev(final_set[i])
+        # for final_set in self.final:
+        #     # for every pair of nodes in the same final set, add edges
+        #     for i in range(len(final_set)):
+        #         for j in range(len(final_set)):
+        #             self.nodes[final_set[i]].add_next(final_set[j])
+        #             self.nodes[final_set[j]].add_prev(final_set[i])
 
         # build edges
         for index in range(len(self.nodes)):
