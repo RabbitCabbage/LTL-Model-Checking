@@ -161,14 +161,19 @@ class ParsedFormula:
         self.get_elementary_sets()
 
         ############## DEBUG ###############
-        # print("Closure: ")
-        # for formula in self.closure:
-        #     print(formula)
-        # print("Elementary sets: ")
-        # for subset in self.elementary_sets:
-        #     for formula in subset:
-        #         print(formula)
-        #     print()
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print("Closure: ")
+        print("[", end='')
+        for formula in self.closure:
+            print(formula, end=', ')
+        print(']\n')
+        print("Elementary sets: ")
+        for subset in self.elementary_sets:
+            print("[", end='')
+            for formula in subset:
+                print(formula, end=', ')
+            print('], ', end='\n')
+        print('\n')
         ############## DEBUG ###############
 
     def get_closure(self) -> None:
@@ -357,6 +362,10 @@ class ParsedFormula:
         if formula.type == 'negation':
             return formula.formula
         else:
+            if formula.type == 'proposition' and formula.proposition == 'true':
+                return Proposition('false')
+            if formula.type == 'proposition' and formula.proposition == 'false':
+                return Proposition('true')
             return Negation(formula)
         
     def get_subsets(self) -> list:
@@ -372,8 +381,7 @@ class ParsedFormula:
         return subsets
         
     def is_elementary(self, subset) -> bool:
-        if Proposition('true') in self.closure:
-            if Proposition('false') in subset:
+        if Proposition('false') in subset:
                 return False
         for formula in self.closure:
             # completeness, maximality
@@ -382,6 +390,12 @@ class ParsedFormula:
             # consistency
             if self.negation(formula) in subset and formula in subset:
                 return False
+        ############## DEBUG ###############
+        # print('[', end='')
+        # for formula in subset:
+        #     print(formula, end=', ')
+        # print(']')
+        ############## DEBUG ###############
         for formula in subset:
             # if a /\ b in subset, then !a or !b should not be in subset
             if formula.type == 'conjunction':

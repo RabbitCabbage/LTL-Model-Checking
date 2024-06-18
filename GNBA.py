@@ -7,14 +7,15 @@ from Parser import Negation
 from Parser import Next
 
 class GNBA_node:
-    def __init__(self, formula_set, alphabet):
+    def __init__(self, formula_str, formula_set, alphabet):
+        self.formula_str = formula_str
         self.formula_set = formula_set
         self.next = set()
         self.alphabet = alphabet
         # prop as condition on the edge of outdegree.
         self.propositions = []
         for formula in formula_set:
-            if formula.type == 'proposition' and formula.proposition in self.alphabet:
+            if formula.type == 'proposition':
                 self.propositions.append(formula.proposition)
 
     def add_next(self, node_idx):
@@ -31,7 +32,8 @@ class GNBA_node:
 
 
 class GNBA:
-    def __init__(self, alphabet, parsed_formula):
+    def __init__(self, alphabet, formula_str, parsed_formula):
+        self.formula_str = formula_str
         # list of nodes
         self.nodes = []
         # list of indices of nodes
@@ -46,7 +48,7 @@ class GNBA:
         # for formula_set in self.parsed_formula.elementary_set:
         for index in range(len(self.parsed_formula.elementary_sets)):
             formula_set = self.parsed_formula.elementary_sets[index]
-            node = GNBA_node(formula_set, self.alphabet)
+            node = GNBA_node(self.formula_str, formula_set, self.alphabet)
             self.nodes.append(node)
             if self.parsed_formula.formula in formula_set:
                 self.initial.append(index)
