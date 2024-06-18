@@ -1,0 +1,922 @@
+===========================
+(0, 'a')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[!a, a, ]
+
+Elementary sets: 
+[!a, ], 
+[a, ], 
+
+
+GNBA initial:  [1]
+GNBA final:  []
+Node 0 : [
+!a,
+]
+props: []
+Next: {0}
+
+Node 1 : [
+a,
+]
+props: [a, ]
+Next: {1}
+
+===========================
+(3, '(G(!c))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[(true U c), false, !(true U c), c, true, !c, ]
+
+Elementary sets: 
+[(true U c), c, true, ], 
+[(true U c), true, !c, ], 
+[!(true U c), true, !c, ], 
+
+
+GNBA initial:  [2]
+GNBA final:  [[0, 2]]
+Node 0 : [
+(true U c),
+c,
+true,
+]
+props: [c, true, ]
+Next: {0, 1, 2}
+
+Node 1 : [
+(true U c),
+true,
+!c,
+]
+props: [true, ]
+Next: {0, 1}
+
+Node 2 : [
+!(true U c),
+true,
+!c,
+]
+props: [true, ]
+Next: {2}
+
+===========================
+(3, '(F(Gb))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[(true U !(true U !b)), !(true U !(true U !b)), (true U !b), !(true U !b), false, b, !b, true, ]
+
+Elementary sets: 
+[(true U !(true U !b)), (true U !b), b, true, ], 
+[!(true U !(true U !b)), (true U !b), b, true, ], 
+[(true U !(true U !b)), !(true U !b), b, true, ], 
+[(true U !(true U !b)), (true U !b), !b, true, ], 
+[!(true U !(true U !b)), (true U !b), !b, true, ], 
+
+
+GNBA initial:  [0, 2, 3]
+GNBA final:  [[1, 2, 4], [2, 3, 4]]
+Node 0 : [
+(true U !(true U !b)),
+(true U !b),
+b,
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4}
+
+Node 1 : [
+!(true U !(true U !b)),
+(true U !b),
+b,
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 3, 4}
+
+Node 2 : [
+(true U !(true U !b)),
+!(true U !b),
+b,
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4}
+
+Node 3 : [
+(true U !(true U !b)),
+(true U !b),
+!b,
+true,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4}
+
+Node 4 : [
+!(true U !(true U !b)),
+(true U !b),
+!b,
+true,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4}
+
+===========================
+(2, '((b->a)/\\(Fc))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[!(!(b /\ !a) /\ (true U c)), a, (true U c), !a, false, b, !b, (!(b /\ !a) /\ (true U c)), (b /\ !a), true, !(true U c), !(b /\ !a), c, !c, ]
+
+Elementary sets: 
+[!(!(b /\ !a) /\ (true U c)), (true U c), !a, b, (b /\ !a), true, c, ], 
+[a, (true U c), b, (!(b /\ !a) /\ (true U c)), true, !(b /\ !a), c, ], 
+[a, (true U c), !b, (!(b /\ !a) /\ (true U c)), true, !(b /\ !a), c, ], 
+[(true U c), !a, !b, (!(b /\ !a) /\ (true U c)), true, !(b /\ !a), c, ], 
+[!(!(b /\ !a) /\ (true U c)), (true U c), !a, b, (b /\ !a), true, !c, ], 
+[!(!(b /\ !a) /\ (true U c)), !a, b, (b /\ !a), true, !(true U c), !c, ], 
+[a, (true U c), b, (!(b /\ !a) /\ (true U c)), true, !(b /\ !a), !c, ], 
+[a, (true U c), !b, (!(b /\ !a) /\ (true U c)), true, !(b /\ !a), !c, ], 
+[(true U c), !a, !b, (!(b /\ !a) /\ (true U c)), true, !(b /\ !a), !c, ], 
+[!(!(b /\ !a) /\ (true U c)), a, b, true, !(true U c), !(b /\ !a), !c, ], 
+[!(!(b /\ !a) /\ (true U c)), a, !b, true, !(true U c), !(b /\ !a), !c, ], 
+[!(!(b /\ !a) /\ (true U c)), !a, !b, true, !(true U c), !(b /\ !a), !c, ], 
+
+
+GNBA initial:  [1, 2, 3, 6, 7, 8]
+GNBA final:  [[0, 1, 2, 3, 5, 9, 10, 11]]
+Node 0 : [
+!(!(b /\ !a) /\ (true U c)),
+(true U c),
+!a,
+b,
+(b /\ !a),
+true,
+c,
+]
+props: [b, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 1 : [
+a,
+(true U c),
+b,
+(!(b /\ !a) /\ (true U c)),
+true,
+!(b /\ !a),
+c,
+]
+props: [a, b, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 2 : [
+a,
+(true U c),
+!b,
+(!(b /\ !a) /\ (true U c)),
+true,
+!(b /\ !a),
+c,
+]
+props: [a, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 3 : [
+(true U c),
+!a,
+!b,
+(!(b /\ !a) /\ (true U c)),
+true,
+!(b /\ !a),
+c,
+]
+props: [true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 4 : [
+!(!(b /\ !a) /\ (true U c)),
+(true U c),
+!a,
+b,
+(b /\ !a),
+true,
+!c,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4, 6, 7, 8}
+
+Node 5 : [
+!(!(b /\ !a) /\ (true U c)),
+!a,
+b,
+(b /\ !a),
+true,
+!(true U c),
+!c,
+]
+props: [b, true, ]
+Next: {9, 10, 11, 5}
+
+Node 6 : [
+a,
+(true U c),
+b,
+(!(b /\ !a) /\ (true U c)),
+true,
+!(b /\ !a),
+!c,
+]
+props: [a, b, true, ]
+Next: {0, 1, 2, 3, 4, 6, 7, 8}
+
+Node 7 : [
+a,
+(true U c),
+!b,
+(!(b /\ !a) /\ (true U c)),
+true,
+!(b /\ !a),
+!c,
+]
+props: [a, true, ]
+Next: {0, 1, 2, 3, 4, 6, 7, 8}
+
+Node 8 : [
+(true U c),
+!a,
+!b,
+(!(b /\ !a) /\ (true U c)),
+true,
+!(b /\ !a),
+!c,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4, 6, 7, 8}
+
+Node 9 : [
+!(!(b /\ !a) /\ (true U c)),
+a,
+b,
+true,
+!(true U c),
+!(b /\ !a),
+!c,
+]
+props: [a, b, true, ]
+Next: {9, 10, 11, 5}
+
+Node 10 : [
+!(!(b /\ !a) /\ (true U c)),
+a,
+!b,
+true,
+!(true U c),
+!(b /\ !a),
+!c,
+]
+props: [a, true, ]
+Next: {9, 10, 11, 5}
+
+Node 11 : [
+!(!(b /\ !a) /\ (true U c)),
+!a,
+!b,
+true,
+!(true U c),
+!(b /\ !a),
+!c,
+]
+props: [true, ]
+Next: {9, 10, 11, 5}
+
+===========================
+(5, '((Gb)\\/(Xb))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[X(b), (true U !b), !X(b), ((true U !b) /\ !X(b)), !(true U !b), !((true U !b) /\ !X(b)), false, b, !b, true, ]
+
+Elementary sets: 
+[(true U !b), !X(b), ((true U !b) /\ !X(b)), b, true, ], 
+[X(b), (true U !b), !((true U !b) /\ !X(b)), b, true, ], 
+[X(b), !(true U !b), !((true U !b) /\ !X(b)), b, true, ], 
+[!X(b), !(true U !b), !((true U !b) /\ !X(b)), b, true, ], 
+[(true U !b), !X(b), ((true U !b) /\ !X(b)), !b, true, ], 
+[X(b), (true U !b), !((true U !b) /\ !X(b)), !b, true, ], 
+
+
+GNBA initial:  [1, 2, 3, 5]
+GNBA final:  [[2, 3, 4, 5]]
+Node 0 : [
+(true U !b),
+!X(b),
+((true U !b) /\ !X(b)),
+b,
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 4, 5}
+
+Node 1 : [
+X(b),
+(true U !b),
+!((true U !b) /\ !X(b)),
+b,
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4, 5}
+
+Node 2 : [
+X(b),
+!(true U !b),
+!((true U !b) /\ !X(b)),
+b,
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3}
+
+Node 3 : [
+!X(b),
+!(true U !b),
+!((true U !b) /\ !X(b)),
+b,
+true,
+]
+props: [b, true, ]
+Next: {2, 3}
+
+Node 4 : [
+(true U !b),
+!X(b),
+((true U !b) /\ !X(b)),
+!b,
+true,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4, 5}
+
+Node 5 : [
+X(b),
+(true U !b),
+!((true U !b) /\ !X(b)),
+!b,
+true,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4, 5}
+
+===========================
+(3, '((b->a)U(Fc))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[!(!(b /\ !a) U (true U c)), a, (true U c), !a, false, b, !b, (b /\ !a), true, !(true U c), !(b /\ !a), (!(b /\ !a) U (true U c)), c, !c, ]
+
+Elementary sets: 
+[(true U c), !a, b, (b /\ !a), true, (!(b /\ !a) U (true U c)), c, ], 
+[a, (true U c), b, true, !(b /\ !a), (!(b /\ !a) U (true U c)), c, ], 
+[a, (true U c), !b, true, !(b /\ !a), (!(b /\ !a) U (true U c)), c, ], 
+[(true U c), !a, !b, true, !(b /\ !a), (!(b /\ !a) U (true U c)), c, ], 
+[!(!(b /\ !a) U (true U c)), !a, b, (b /\ !a), true, !(true U c), !c, ], 
+[!(!(b /\ !a) U (true U c)), a, b, true, !(true U c), !(b /\ !a), !c, ], 
+[!(!(b /\ !a) U (true U c)), a, !b, true, !(true U c), !(b /\ !a), !c, ], 
+[!(!(b /\ !a) U (true U c)), !a, !b, true, !(true U c), !(b /\ !a), !c, ], 
+[(true U c), !a, b, (b /\ !a), true, (!(b /\ !a) U (true U c)), !c, ], 
+[a, (true U c), b, true, !(b /\ !a), (!(b /\ !a) U (true U c)), !c, ], 
+[a, (true U c), !b, true, !(b /\ !a), (!(b /\ !a) U (true U c)), !c, ], 
+[(true U c), !a, !b, true, !(b /\ !a), (!(b /\ !a) U (true U c)), !c, ], 
+[a, b, true, !(true U c), !(b /\ !a), (!(b /\ !a) U (true U c)), !c, ], 
+[a, !b, true, !(true U c), !(b /\ !a), (!(b /\ !a) U (true U c)), !c, ], 
+[!a, !b, true, !(true U c), !(b /\ !a), (!(b /\ !a) U (true U c)), !c, ], 
+
+
+GNBA initial:  [0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14]
+GNBA final:  [[0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]]
+Node 0 : [
+(true U c),
+!a,
+b,
+(b /\ !a),
+true,
+(!(b /\ !a) U (true U c)),
+c,
+]
+props: [b, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 1 : [
+a,
+(true U c),
+b,
+true,
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+c,
+]
+props: [a, b, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 2 : [
+a,
+(true U c),
+!b,
+true,
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+c,
+]
+props: [a, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 3 : [
+(true U c),
+!a,
+!b,
+true,
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+c,
+]
+props: [true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 4 : [
+!(!(b /\ !a) U (true U c)),
+!a,
+b,
+(b /\ !a),
+true,
+!(true U c),
+!c,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 5 : [
+!(!(b /\ !a) U (true U c)),
+a,
+b,
+true,
+!(true U c),
+!(b /\ !a),
+!c,
+]
+props: [a, b, true, ]
+Next: {4, 5, 6, 7, 12, 13, 14}
+
+Node 6 : [
+!(!(b /\ !a) U (true U c)),
+a,
+!b,
+true,
+!(true U c),
+!(b /\ !a),
+!c,
+]
+props: [a, true, ]
+Next: {4, 5, 6, 7, 12, 13, 14}
+
+Node 7 : [
+!(!(b /\ !a) U (true U c)),
+!a,
+!b,
+true,
+!(true U c),
+!(b /\ !a),
+!c,
+]
+props: [true, ]
+Next: {4, 5, 6, 7, 12, 13, 14}
+
+Node 8 : [
+(true U c),
+!a,
+b,
+(b /\ !a),
+true,
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 9 : [
+a,
+(true U c),
+b,
+true,
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [a, b, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 10 : [
+a,
+(true U c),
+!b,
+true,
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [a, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 11 : [
+(true U c),
+!a,
+!b,
+true,
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 12 : [
+a,
+b,
+true,
+!(true U c),
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [a, b, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 13 : [
+a,
+!b,
+true,
+!(true U c),
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [a, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+Node 14 : [
+!a,
+!b,
+true,
+!(true U c),
+!(b /\ !a),
+(!(b /\ !a) U (true U c)),
+!c,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+
+===========================
+(4, '(G(b/\\c))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[!(b /\ c), false, b, !b, !c, true, (true U !(b /\ c)), !(true U !(b /\ c)), c, (b /\ c), ]
+
+Elementary sets: 
+[!(b /\ c), b, !c, true, (true U !(b /\ c)), ], 
+[!(b /\ c), !b, !c, true, (true U !(b /\ c)), ], 
+[!(b /\ c), !b, true, (true U !(b /\ c)), c, ], 
+[b, true, (true U !(b /\ c)), c, (b /\ c), ], 
+[b, true, !(true U !(b /\ c)), c, (b /\ c), ], 
+
+
+GNBA initial:  [4]
+GNBA final:  [[0, 1, 2, 4]]
+Node 0 : [
+!(b /\ c),
+b,
+!c,
+true,
+(true U !(b /\ c)),
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 4}
+
+Node 1 : [
+!(b /\ c),
+!b,
+!c,
+true,
+(true U !(b /\ c)),
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 4}
+
+Node 2 : [
+!(b /\ c),
+!b,
+true,
+(true U !(b /\ c)),
+c,
+]
+props: [true, c, ]
+Next: {0, 1, 2, 3, 4}
+
+Node 3 : [
+b,
+true,
+(true U !(b /\ c)),
+c,
+(b /\ c),
+]
+props: [b, true, c, ]
+Next: {0, 1, 2, 3}
+
+Node 4 : [
+b,
+true,
+!(true U !(b /\ c)),
+c,
+(b /\ c),
+]
+props: [b, true, c, ]
+Next: {4}
+
+===========================
+(1, '((c/\\c)\\/(c\\/c))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[(c /\ c), !(c /\ c), (!c /\ !c), (!(c /\ c) /\ (!c /\ !c)), !(!c /\ !c), !(!(c /\ c) /\ (!c /\ !c)), c, !c, ]
+
+Elementary sets: 
+[(c /\ c), !(!c /\ !c), !(!(c /\ c) /\ (!c /\ !c)), c, ], 
+[!(c /\ c), (!c /\ !c), (!(c /\ c) /\ (!c /\ !c)), !c, ], 
+
+
+GNBA initial:  [0]
+GNBA final:  []
+Node 0 : [
+(c /\ c),
+!(!c /\ !c),
+!(!(c /\ c) /\ (!c /\ !c)),
+c,
+]
+props: [c, ]
+Next: {0}
+
+Node 1 : [
+!(c /\ c),
+(!c /\ !c),
+(!(c /\ c) /\ (!c /\ !c)),
+!c,
+]
+props: []
+Next: {1}
+
+===========================
+(5, '((Fa)/\\(b/\\b))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[(true U a), !(true U a), a, ((true U a) /\ (b /\ b)), !((true U a) /\ (b /\ b)), !a, false, b, !b, (b /\ b), !(b /\ b), true, ]
+
+Elementary sets: 
+[(true U a), a, ((true U a) /\ (b /\ b)), b, (b /\ b), true, ], 
+[(true U a), ((true U a) /\ (b /\ b)), !a, b, (b /\ b), true, ], 
+[!(true U a), !((true U a) /\ (b /\ b)), !a, b, (b /\ b), true, ], 
+[(true U a), a, !((true U a) /\ (b /\ b)), !b, !(b /\ b), true, ], 
+[(true U a), !((true U a) /\ (b /\ b)), !a, !b, !(b /\ b), true, ], 
+[!(true U a), !((true U a) /\ (b /\ b)), !a, !b, !(b /\ b), true, ], 
+
+
+GNBA initial:  [0, 1]
+GNBA final:  [[0, 2, 3, 5]]
+Node 0 : [
+(true U a),
+a,
+((true U a) /\ (b /\ b)),
+b,
+(b /\ b),
+true,
+]
+props: [a, b, true, ]
+Next: {0, 1, 2, 3, 4, 5}
+
+Node 1 : [
+(true U a),
+((true U a) /\ (b /\ b)),
+!a,
+b,
+(b /\ b),
+true,
+]
+props: [b, true, ]
+Next: {0, 1, 3, 4}
+
+Node 2 : [
+!(true U a),
+!((true U a) /\ (b /\ b)),
+!a,
+b,
+(b /\ b),
+true,
+]
+props: [b, true, ]
+Next: {2, 5}
+
+Node 3 : [
+(true U a),
+a,
+!((true U a) /\ (b /\ b)),
+!b,
+!(b /\ b),
+true,
+]
+props: [a, true, ]
+Next: {0, 1, 2, 3, 4, 5}
+
+Node 4 : [
+(true U a),
+!((true U a) /\ (b /\ b)),
+!a,
+!b,
+!(b /\ b),
+true,
+]
+props: [true, ]
+Next: {0, 1, 3, 4}
+
+Node 5 : [
+!(true U a),
+!((true U a) /\ (b /\ b)),
+!a,
+!b,
+!(b /\ b),
+true,
+]
+props: [true, ]
+Next: {2, 5}
+
+===========================
+(3, '((c/\\b)->(Fa))')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Closure: 
+[(true U a), !(c /\ b), (c /\ b), !(true U a), a, !a, false, b, !b, !((c /\ b) /\ !(true U a)), true, ((c /\ b) /\ !(true U a)), c, !c, ]
+
+Elementary sets: 
+[(true U a), (c /\ b), a, b, !((c /\ b) /\ !(true U a)), true, c, ], 
+[(true U a), (c /\ b), !a, b, !((c /\ b) /\ !(true U a)), true, c, ], 
+[(true U a), !(c /\ b), a, !b, !((c /\ b) /\ !(true U a)), true, c, ], 
+[(true U a), !(c /\ b), !a, !b, !((c /\ b) /\ !(true U a)), true, c, ], 
+[!(c /\ b), !(true U a), !a, !b, !((c /\ b) /\ !(true U a)), true, c, ], 
+[(c /\ b), !(true U a), !a, b, true, ((c /\ b) /\ !(true U a)), c, ], 
+[(true U a), !(c /\ b), a, b, !((c /\ b) /\ !(true U a)), true, !c, ], 
+[(true U a), !(c /\ b), !a, b, !((c /\ b) /\ !(true U a)), true, !c, ], 
+[!(c /\ b), !(true U a), !a, b, !((c /\ b) /\ !(true U a)), true, !c, ], 
+[(true U a), !(c /\ b), a, !b, !((c /\ b) /\ !(true U a)), true, !c, ], 
+[(true U a), !(c /\ b), !a, !b, !((c /\ b) /\ !(true U a)), true, !c, ], 
+[!(c /\ b), !(true U a), !a, !b, !((c /\ b) /\ !(true U a)), true, !c, ], 
+
+
+GNBA initial:  [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
+GNBA final:  [[0, 2, 4, 5, 6, 8, 9, 11]]
+Node 0 : [
+(true U a),
+(c /\ b),
+a,
+b,
+!((c /\ b) /\ !(true U a)),
+true,
+c,
+]
+props: [a, b, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 1 : [
+(true U a),
+(c /\ b),
+!a,
+b,
+!((c /\ b) /\ !(true U a)),
+true,
+c,
+]
+props: [b, true, c, ]
+Next: {0, 1, 2, 3, 6, 7, 9, 10}
+
+Node 2 : [
+(true U a),
+!(c /\ b),
+a,
+!b,
+!((c /\ b) /\ !(true U a)),
+true,
+c,
+]
+props: [a, true, c, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 3 : [
+(true U a),
+!(c /\ b),
+!a,
+!b,
+!((c /\ b) /\ !(true U a)),
+true,
+c,
+]
+props: [true, c, ]
+Next: {0, 1, 2, 3, 6, 7, 9, 10}
+
+Node 4 : [
+!(c /\ b),
+!(true U a),
+!a,
+!b,
+!((c /\ b) /\ !(true U a)),
+true,
+c,
+]
+props: [true, c, ]
+Next: {8, 11, 4, 5}
+
+Node 5 : [
+(c /\ b),
+!(true U a),
+!a,
+b,
+true,
+((c /\ b) /\ !(true U a)),
+c,
+]
+props: [b, true, c, ]
+Next: {8, 11, 4, 5}
+
+Node 6 : [
+(true U a),
+!(c /\ b),
+a,
+b,
+!((c /\ b) /\ !(true U a)),
+true,
+!c,
+]
+props: [a, b, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 7 : [
+(true U a),
+!(c /\ b),
+!a,
+b,
+!((c /\ b) /\ !(true U a)),
+true,
+!c,
+]
+props: [b, true, ]
+Next: {0, 1, 2, 3, 6, 7, 9, 10}
+
+Node 8 : [
+!(c /\ b),
+!(true U a),
+!a,
+b,
+!((c /\ b) /\ !(true U a)),
+true,
+!c,
+]
+props: [b, true, ]
+Next: {8, 11, 4, 5}
+
+Node 9 : [
+(true U a),
+!(c /\ b),
+a,
+!b,
+!((c /\ b) /\ !(true U a)),
+true,
+!c,
+]
+props: [a, true, ]
+Next: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+
+Node 10 : [
+(true U a),
+!(c /\ b),
+!a,
+!b,
+!((c /\ b) /\ !(true U a)),
+true,
+!c,
+]
+props: [true, ]
+Next: {0, 1, 2, 3, 6, 7, 9, 10}
+
+Node 11 : [
+!(c /\ b),
+!(true U a),
+!a,
+!b,
+!((c /\ b) /\ !(true U a)),
+true,
+!c,
+]
+props: [true, ]
+Next: {8, 11, 4, 5}
+
+[True, True, True, True, True, True, True, True, True, True]

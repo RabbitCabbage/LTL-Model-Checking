@@ -75,7 +75,7 @@ class GNBA:
         for index in range(len(self.nodes)):
             node = self.nodes[index]
             # add self loop
-            node.add_next(index)
+            # node.add_next(index)
             for formula in node.formula_set:
                 if formula.type == 'next':
                     for jndex in range(len(self.nodes)):
