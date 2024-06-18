@@ -7,22 +7,26 @@ from Parser import Negation
 from Parser import Next
 
 class GNBA_node:
-    def __init__(self, gnba, formula_set):
-        self.gnba = gnba
+    def __init__(self, formula_set, alphabet):
         self.formula_set = formula_set
         self.next = set()
-        self.prev = set()
+        self.alphabet = alphabet
+        # prop as condition on the edge of outdegree.
+        self.propositions = []
+        for formula in formula_set:
+            if formula.type == 'proposition' and formula.proposition in self.alphabet:
+                self.propositions.append(formula.proposition)
 
     def add_next(self, node_idx):
         self.next.add(node_idx)
-
-    def add_prev(self, node_idx):
-        self.prev.add(node_idx)
 
     def __str__(self) -> str:
         str = "[\n"
         for formula in self.formula_set:
             str += formula.__str__() + ",\n"
+        str = str + "]\nprops: ["
+        for prop in self.propositions:
+            str += prop + ", "
         return str + "]"
 
 
@@ -42,7 +46,7 @@ class GNBA:
         # for formula_set in self.parsed_formula.elementary_set:
         for index in range(len(self.parsed_formula.elementary_sets)):
             formula_set = self.parsed_formula.elementary_sets[index]
-            node = GNBA_node(self, formula_set)
+            node = GNBA_node(formula_set, self.alphabet)
             self.nodes.append(node)
             if self.parsed_formula.formula in formula_set:
                 self.initial.append(index)
@@ -64,38 +68,32 @@ class GNBA:
         #     for i in range(len(final_set)):
         #         for j in range(len(final_set)):
         #             self.nodes[final_set[i]].add_next(final_set[j])
-        #             self.nodes[final_set[j]].add_prev(final_set[i])
 
         # build edges
         for index in range(len(self.nodes)):
             node = self.nodes[index]
             # add self loop
             node.add_next(index)
-            node.add_prev(index)
             for formula in node.formula_set:
                 if formula.type == 'next':
                     for jndex in range(len(self.nodes)):
                         psb_next = self.nodes[jndex]
                         if formula.formula in psb_next.formula_set:
                             node.add_next(jndex)
-                            psb_next.add_prev(index)
                 elif formula.type == 'until':
                     for jndex in range(len(self.nodes)):
                         psb_next = self.nodes[jndex]
                         if formula.right in node.formula_set or (formula.left in node.formula_set and formula in psb_next.formula_set):
                             node.add_next(jndex)
-                            psb_next.add_prev(index)
                 elif formula.type == 'negation' and formula.formula.type == 'until':
                     for jndex in range(len(self.nodes)):
                         psb_next = self.nodes[jndex]
                         if formula.formula.right not in node.formula_set and (formula.formula.left not in node.formula_set or formula.formula not in psb_next.formula_set):
                             node.add_next(jndex)
-                            psb_next.add_prev(index)
 
     def print_gnba(self):
         for index in range(len(self.nodes)):
             node = self.nodes[index]
             print("Node", index, ":", node)
             print("Next:", node.next)
-            print("Prev:", node.prev)
             print("")

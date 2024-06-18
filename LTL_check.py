@@ -1,6 +1,6 @@
 from Parser import *
 from GNBA import *
-
+from NBA import *
 
 
 ts = TS("TS.txt")
@@ -26,3 +26,4 @@ for formula_str in formulae:
     print(gnba.initial)
     print(gnba.final)
     gnba.print_gnba()
+    nba = NBA(gnba)
