@@ -40,28 +40,33 @@ class Product:
                     nba_node = nba.nodes[nba_node_idx_pair]
                     # edge: 
                     ############## DEBUG ###############
-                    print('-------------------------')
+                    # print('-------------------------')
                     # print('nba node: ', nba_node.propositions)
                     # print('ts state: ', prop_set)
                     # print(prop_set.issubset(set(nba_node.propositions)))
-                    print("TS EDGE: ", ts_node.index, next_ts_node_index)
-                    print('ts state: ', prop_set)
+                    # print("TS EDGE: ", ts_node.index, next_ts_node_index)
+                    # print('ts state: ', prop_set)
                     ############## DEBUG ###############
                     if 'true' in nba_node.propositions or prop_set == set(nba_node.propositions):
                         # self.nodes[(ts_node.index, nba_node_idx_pair)].add_next(action, (next_ts_node.index, nba_node_idx_pair))
                         # all the next of nba_node should be added as edge
                         for next_nba_idx_pair in nba_node.next:
                             self.nodes[(ts_node.index, nba_node_idx_pair)].add_next(action, (next_ts_node.index, next_nba_idx_pair))
-                            print("NBA EDGE: ", nba_node_idx_pair[1], next_nba_idx_pair[1])
-                            print('nba node: ', nba_node.propositions)
+                            # print("NBA EDGE: ", nba_node_idx_pair[1], next_nba_idx_pair[1])
+                            # print('nba node: ', nba_node.propositions)
         self.init = []
         ts_init_state = ts.states[ts.initial_state]
+        ############## DEBUG ###############
+        # print("TS initial state: ", ts_init_state.index)
+        # print("TS initial state propositions: ", ts_init_state.propositions)
+        # print("NBA initial state: ", nba.initial)
+        ############## DEBUG ###############
         prop_set = set(ts_init_state.propositions)
         for nba_node_idx_pair in nba.initial:
             nba_node = nba.nodes[nba_node_idx_pair]
-            if 'true' in nba_node.propositions and prop_set == set(nba_node.propositions):
+            if 'true' in nba_node.propositions or prop_set == set(nba_node.propositions):
                 for next_nba_idx_pair in nba_node.next:
-                    self.init.append(ts.initial_state, next_nba_idx_pair)
+                    self.init.append((ts.initial_state, next_nba_idx_pair))
     
     def on_cycle(self, node) -> bool:
         inner_visited = []
@@ -117,6 +122,7 @@ class Product:
                     # remove cur_node from stack
                     outer_stack.pop(0)
                     # if cur_node is !\Phi, then check if cur_node is on the cycle
+                    print("possible cycle node")
                     if cur_node.new_prop in self.nba.final:
                         cycle_found = self.on_cycle(cur_node)
                 else:

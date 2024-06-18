@@ -161,19 +161,19 @@ class ParsedFormula:
         self.get_elementary_sets()
 
         ############## DEBUG ###############
-        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        print("Closure: ")
-        print("[", end='')
-        for formula in self.closure:
-            print(formula, end=', ')
-        print(']\n')
-        print("Elementary sets: ")
-        for subset in self.elementary_sets:
-            print("[", end='')
-            for formula in subset:
-                print(formula, end=', ')
-            print('], ', end='\n')
-        print('\n')
+        # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        # print("Closure: ")
+        # print("[", end='')
+        # for formula in self.closure:
+        #     print(formula, end=', ')
+        # print(']\n')
+        # print("Elementary sets: ")
+        # for subset in self.elementary_sets:
+        #     print("[", end='')
+        #     for formula in subset:
+        #         print(formula, end=', ')
+        #     print('], ', end='\n')
+        # print('\n')
         ############## DEBUG ###############
 
     def get_closure(self) -> None:

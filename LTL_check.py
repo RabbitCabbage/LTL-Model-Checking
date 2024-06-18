@@ -22,18 +22,27 @@ for i in range(from_other):
 list = []
 for formula_str in formulae:
     ############## DEBUG ###############
-    print('===========================')
-    print(formula_str)
+    # print('===========================')
+    # print(formula_str)
     ############## DEBUG ###############
+
     es = ParsedFormula(formula_str[1], ts.propositions)
     gnba = GNBA(ts.propositions, formula_str[1], es)
+
     ############## DEBUG ###############
-    print("GNBA initial: ", gnba.initial)
-    print("GNBA final: ", gnba.final)
+    # print("GNBA initial: ", gnba.initial)
+    # print("GNBA final: ", gnba.final)
+    # gnba.print_gnba()
     ############## DEBUG ###############
-    gnba.print_gnba()
+
     nba = NBA(gnba)
     product = Product(ts, nba)
+
+    ############## DEBUG ###############
+    # print('product initial: ', product.init)
+    # print('nba final: ', nba.final)
+    ############## DEBUG ###############
+    
     list.append(product.persistence_check())
 
 print(list)
