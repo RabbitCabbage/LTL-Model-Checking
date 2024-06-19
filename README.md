@@ -34,11 +34,14 @@ To construct elementary sets, the first step is build closure set, which is to r
 ### Build GNBA and NBA for LTL formulae
 Then we construct GNBA and NBA for the LTL formulae. For future checks, we use the formula's negation, i.e. construct NBA $\mathcal A_{\neg \varphi}$ for $\varphi$.
 `src/GNBA.py` contains the GNBA construction algorithm. GNBA is constructed from the LTL's elementary sets. Each elementary set is a state node in GNBA, and the transitions are constructed according to the rules of `NEXT` and `UNTIL` operators.
+
 ![Construction of GNBA](./assets/gnba.png)
 
 Because the definition of NBA requires a unique accepting set, we need to convert GNBA to NBA. The conversion algorithm is implemented in `src/NBA.py`. Assume the GNBA contains $k$ accepting sets, then we connect $k$ copies of GNBA to from an NBA. In details, the edges in $i$-th accepting set of the $i$-th GNBA are connected to the next GNBA copy.
 ![Construction of NBA](./assets/nba_from_gnba.png)
+
 Formally, let $\mathcal{A}=\left(Q^{\prime}, \Sigma, \delta^{\prime}, Q_0^{\prime}, F^{\prime}\right)$ where:
+
 $$
 \begin{aligned}
 & Q^{\prime}=Q \times\{1, \ldots, k\}, \\
@@ -46,18 +49,23 @@ $$
 & F^{\prime}=F_1 \times\{1\}=\left\{\left\langle q_F, 1\right\rangle \mid q_F \in F_1\right\} .
 \end{aligned}
 $$
+
 $$
 \delta^{\prime}(\langle q, i\rangle, A)= \begin{cases}\left\{\left\langle q^{\prime}, i\right\rangle \mid q^{\prime} \in \delta(q, A)\right\} & \text { if } q \notin F_i \\ \left\{\left\langle q^{\prime}, i+1\right\rangle \mid q^{\prime} \in \delta(q, A)\right\} & \text { otherwise. }\end{cases}
 $$
 
 ### Product of TS and NBA
 The product of TS and NBA is constructed in `src/Product.py`.The product is defined as follows:
+
 ![Product of TS and NBA](./assets/product.png)
+
 The product is a new TS without terminal states. 
 Then we can run persistence check algorithm on this product to check if the TS satisfies the LTL formulae.
 
 ### Persistence Check
 The essence of the persistence check algorithm is to find a reachable cycle in the product using nested DFS. In the product $TS \otimes \mathcal{A}_{\neg \varphi}$, a reachable cycle means that there is a path satisfying the negation of the LTL formula, thus $TS\models \varphi$ fails.
 The algorithm is implemented in `src/Product.py` as a method of the product class. The algorithm is as follows:
+
 ![Persistence Check](./assets/algo8.png)
+
 ![Persistence Check](./assets/algo7.png)
