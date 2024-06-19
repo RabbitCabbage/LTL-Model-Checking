@@ -5,7 +5,8 @@ from Product import *
 
 
 ts = TS("TS.txt")
-filename_list = ['sample.txt', 'benchmark.txt','benchmark1.txt']
+filename_list = ['ds_debug.txt']
+# filename_list = ['sample.txt', 'benchmark.txt','benchmark1.txt']
 for file_name in filename_list:
     file = open(file_name, 'r')
     lines = file.readlines()
@@ -25,26 +26,30 @@ for file_name in filename_list:
     for formula_str in formulae:
 
         ############## DEBUG ###############
-        # print('===========================')
-        # print(formula_str)
+        print('===========================')
+        print(formula_str)
         ############## DEBUG ###############
 
         ts.initial_state = formula_str[0]
         es = ParsedFormula('!('+formula_str[1]+')', ts.propositions)
-        gnba = GNBA(ts.propositions, formula_str[1], es)
+        gnba = GNBA(ts.propositions, '!('+formula_str[1]+')', es)
 
         ############## DEBUG ###############
-        # print("GNBA initial: ", gnba.initial)
-        # print("GNBA final: ", gnba.final)
-        # gnba.print_gnba()
+        print("closure: [")
+        for i in es.closure:
+            print(i)
+        print("]")
+        print("GNBA initial: ", gnba.initial)
+        print("GNBA final: ", gnba.final)
+        gnba.print_gnba()
         ############## DEBUG ###############
 
         nba = NBA(gnba)
         product = Product(ts, nba)
 
         ############## DEBUG ###############
-        # print('product initial: ', product.init)
-        # print('nba final: ', nba.final)
+        print('product initial: ', product.init)
+        print('nba final: ', nba.final)
         ############## DEBUG ###############
         
         list.append(product.persistence_check())

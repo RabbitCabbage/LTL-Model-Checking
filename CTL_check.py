@@ -49,7 +49,7 @@ def dfs_until(ts, state_idx, lhs, rhs):
 
 # check the formulae on the TS recursively
 def check_formulae(ts, state_idx, formula):
-    print(state_idx, formula)
+    # print(state_idx, formula)
     node = ts.states[state_idx]
     if formula[0] == 'X':
         # check all the next states
@@ -160,7 +160,7 @@ def check_formulae(ts, state_idx, formula):
 
 
 ts = TS("TS.txt")
-file = open("sample.txt", 'r')
+file = open("ds_debug.txt", 'r')
 lines = file.readlines()
 file.close()
 from_init, from_other = lines[0].split()
@@ -172,7 +172,7 @@ for i in range(from_init):
     formulae.append((ts.initial_state, lines[i+1].split('\n')[0].replace(' ', '')))
 for i in range(from_other):
     formulae.append((int(lines[from_init+i+1].split()[0]), lines[from_init+i+1].split(' ', 1)[1].split('\n')[0].replace(' ', '')))
-print(formulae)
+# print(formulae)
 
 list = []
 for formula in formulae:
