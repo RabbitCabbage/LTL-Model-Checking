@@ -78,50 +78,37 @@ class GNBA:
             # node.add_next(index)
             # keep a list of neg_next, next step should not contain these
             neg_next = []
-            neg_until = []
             for formula in node.formula_set:
                 if formula.type == 'negation' and formula.formula.type == 'next':
                     # next node should not contain formula.formula.formula
                     neg_next.append(formula.formula.formula)
                 elif formula.type == 'negation' and formula.formula.type == 'until':
+                    # (p1 U p2 not in B) iff ((p2 not in B) and ((p1 not in B) or (p1 U p2 not in B))
+                    # in which (p2 not in B) holds naturally in elementary set
                     if formula.formula.left in node.formula_set:
-                        neg_until.append(formula.formula)
+                        neg_next.append(formula.formula)
 
+            must_next = []
             for formula in node.formula_set:
                 if formula.type == 'next':
-                    for jndex in range(len(self.nodes)):
-                        psb_next = self.nodes[jndex]
-                        # psb_next should not contain negation of until formula
-                        if not set(neg_until).isdisjoint(psb_next.formula_set):
-                            continue
-                        # psb_next should not contain negation of next formula
-                        if not set(neg_next).isdisjoint(psb_next.formula_set):
-                            continue
-                        if formula.formula in psb_next.formula_set:
-                            node.add_next(jndex)
+                    # next node must contain formula.formula
+                    must_next.append(formula.formula)
                 elif formula.type == 'until':
-                    for jndex in range(len(self.nodes)):
-                        psb_next = self.nodes[jndex]
-                        # psb_next should not contain negation of next formula
-                        if not set(neg_next).isdisjoint(psb_next.formula_set):
-                            continue
-                        # psb_next should not contain negation of until formula
-                        if not set(neg_until).isdisjoint(psb_next.formula_set):
-                            continue
-                        # psb_next must satisfy this until formula
-                        if formula.right in node.formula_set or (formula.left in node.formula_set and formula in psb_next.formula_set):
-                            node.add_next(jndex)
-                elif formula.type == 'negation' and formula.formula.type == 'until':
-                    for jndex in range(len(self.nodes)):
-                        psb_next = self.nodes[jndex]
-                        # psb_next should not contain negation of next formula
-                        if not set(neg_next).isdisjoint(psb_next.formula_set):
-                            continue
-                        # psb_next should not contain negation of until formula
-                        if not set(neg_until).isdisjoint(psb_next.formula_set):
-                            continue
-                        if formula.formula.right not in node.formula_set and (formula.formula.left not in node.formula_set or formula.formula not in psb_next.formula_set):
-                            node.add_next(jndex)
+                    if formula.right in node.formula_set:
+                        continue
+                    else:
+                        # right is not in this, so next node must contain this until formula
+                        must_next.append(formula)
+              
+            for jndex in range(len(self.nodes)):
+                psb_next = self.nodes[jndex]
+                # psb_next should not contain negation of next formula
+                if not set(neg_next).isdisjoint(psb_next.formula_set):
+                    continue
+                # psb_next must contain must_next
+                if not set(must_next).issubset(psb_next.formula_set):
+                    continue
+                node.add_next(jndex)
 
     def print_gnba(self):
         for index in range(len(self.nodes)):
