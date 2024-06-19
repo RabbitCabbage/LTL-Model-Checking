@@ -74,8 +74,11 @@ class TS:
             self.index += 1
             self.current_line = self.lines[self.index]
             propositions = self.current_line.split()
-            for j in range(len(propositions)):
-                propositions[j] = self.propositions[int(propositions[j])]
+            if len(propositions) == 1 and int(propositions[0]) == -1:
+                propositions = []
+            else:
+                for j in range(len(propositions)):
+                    propositions[j] = self.propositions[int(propositions[j])]
             self.states[i].add_propositions(propositions)
             ############## DEBUG ###############
             # print(i, propositions)

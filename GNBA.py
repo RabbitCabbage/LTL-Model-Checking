@@ -15,7 +15,7 @@ class GNBA_node:
         # prop as condition on the edge of outdegree.
         self.propositions = []
         for formula in formula_set:
-            if formula.type == 'proposition':
+            if formula.type == 'proposition' and formula.proposition != 'true' and formula.proposition != 'false':
                 self.propositions.append(formula.proposition)
 
     def add_next(self, node_idx):

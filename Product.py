@@ -35,6 +35,11 @@ class Product:
             for (action, next_ts_node_index) in ts_node.next:
                 next_ts_node = ts.states[next_ts_node_index]
                 prop_set = set(next_ts_node.propositions)
+                closure_prop_set = set()
+                closure = nba.gnba.parsed_formula.closure
+                for formula in closure:
+                    if formula.type ==  'proposition' and formula.proposition != 'true' and formula.proposition != 'false' and formula.proposition in prop_set:
+                            closure_prop_set.add(formula.proposition)
                 # find nba_node having the same propositions
                 for nba_node_idx_pair in nba.nodes:
                     nba_node = nba.nodes[nba_node_idx_pair]
@@ -46,25 +51,39 @@ class Product:
                     # print(prop_set.issubset(set(nba_node.propositions)))
                     # print("TS EDGE: ", ts_node.index, next_ts_node_index)
                     # print('ts state: ', prop_set)
+                    # print('closure_prop_set: ', closure_prop_set)  
+                    # print('nba node: ', set(nba_node.propositions))
                     ############## DEBUG ###############
-                    if 'true' in nba_node.propositions or prop_set == set(nba_node.propositions):
+                    if closure_prop_set == set(nba_node.propositions):
                         # self.nodes[(ts_node.index, nba_node_idx_pair)].add_next(action, (next_ts_node.index, nba_node_idx_pair))
                         # all the next of nba_node should be added as edge
                         for next_nba_idx_pair in nba_node.next:
                             self.nodes[(ts_node.index, nba_node_idx_pair)].add_next(action, (next_ts_node.index, next_nba_idx_pair))
+                            ############## DEBUG ###############
                             # print("NBA EDGE: ", nba_node_idx_pair[1], next_nba_idx_pair[1])
-                            # print('nba node: ', nba_node.propositions)
+                            ############## DEBUG ###############
         self.init = []
         ts_init_state = ts.states[ts.initial_state]
         ############## DEBUG ###############
         # print("TS initial state: ", ts_init_state.index)
         # print("TS initial state propositions: ", ts_init_state.propositions)
         # print("NBA initial state: ", nba.initial)
+        # for nba_init_idx_pair in nba.initial:
+        #     print("NBA initial state propositions: ", nba.nodes[nba_init_idx_pair].propositions)
         ############## DEBUG ###############
         prop_set = set(ts_init_state.propositions)
+        closure_prop_set = set()
+        closure = nba.gnba.parsed_formula.closure
+        for formula in closure:
+            if formula.type == 'proposition' and formula.proposition != 'true' and formula.proposition != 'false' and formula.proposition in prop_set:
+                    closure_prop_set.add(formula.proposition)
         for nba_node_idx_pair in nba.initial:
             nba_node = nba.nodes[nba_node_idx_pair]
-            if 'true' in nba_node.propositions or prop_set == set(nba_node.propositions):
+            ############## DEBUG ###############
+            # print("NBA initial state propositions: ", nba_node.propositions)
+            # print("TS initial state propositions: ", closure_prop_set)
+            ############## DEBUG ###############
+            if closure_prop_set == set(nba_node.propositions):
                 for next_nba_idx_pair in nba_node.next:
                     self.init.append((ts.initial_state, next_nba_idx_pair))
     
@@ -99,6 +118,8 @@ class Product:
         outer_stack = []
         cycle_found = False
         # path starts at initial state is reachable
+        if len(self.init) == 0:
+            return True
         while len(set(self.init).intersection(set(outer_visited))) < len(self.init) and not cycle_found:
             init_idx = None
             for i in self.init:
@@ -122,7 +143,7 @@ class Product:
                     # remove cur_node from stack
                     outer_stack.pop(0)
                     # if cur_node is !\Phi, then check if cur_node is on the cycle
-                    print("possible cycle node")
+                    # print("possible cycle node")
                     if cur_node.new_prop in self.nba.final:
                         cycle_found = self.on_cycle(cur_node)
                 else:

@@ -160,7 +160,7 @@ def check_formulae(ts, state_idx, formula):
 
 
 ts = TS("TS.txt")
-file = open("benchmark1.txt", 'r')
+file = open("sample.txt", 'r')
 lines = file.readlines()
 file.close()
 from_init, from_other = lines[0].split()
